@@ -1,11 +1,9 @@
 package io.capawesome.capacitorjs.plugins.fileopener;
 
-import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-import java.io.File;
 
 @CapacitorPlugin(name = "FileOpener")
 public class FileOpenerPlugin extends Plugin {
@@ -28,14 +26,7 @@ public class FileOpenerPlugin extends Plugin {
                 call.reject(ERROR_PATH_MISSING);
                 return;
             }
-            String mimeType = call.getString("mimeType");
-            File file = implementation.getFileByPath(path);
-            if (file == null || !file.exists()) {
-                call.reject(ERROR_FILE_NOT_EXIST);
-                return;
-            }
-
-            implementation.openFile(file, mimeType);
+            implementation.openFile(path);
             call.resolve();
         } catch (Exception ex) {
             call.reject(ex.getMessage());
